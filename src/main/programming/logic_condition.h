@@ -82,6 +82,8 @@ typedef enum {
     LOGIC_CONDITION_DELTA                       = 50,
     LOGIC_CONDITION_APPROX_EQUAL                = 51,
     LOGIC_CONDITION_LAST                        = 52,
+
+    LOGIC_CONDITION_HEADING_HOME                = 90,
 } logicOperation_e;
 
 typedef enum logicOperandType_s {
@@ -135,6 +137,11 @@ typedef enum {
     LOGIC_CONDITION_OPERAND_FLIGHT_AGL_STATUS, //0,1,2                      // 35
     LOGIC_CONDITION_OPERAND_FLIGHT_AGL, //0,1,2                             // 36
     LOGIC_CONDITION_OPERAND_FLIGHT_RANGEFINDER_RAW, //int                   // 37
+    // ... v.7
+    LOGIC_CONDITION_OPERAND_FLIGHT_ATTITUDE_YAW, // deg                     // 40
+    // custom
+    LOGIC_CONDITION_OPERAND_FLIGHT_LATITUDE = 90, // cm
+    LOGIC_CONDITION_OPERAND_FLIGHT_LONGITUDE = 91, // cm
 } logicFlightOperands_e;
 
 typedef enum {
