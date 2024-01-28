@@ -380,6 +380,21 @@ static int logicConditionCompute(
             return tan_approx(DEGREES_TO_RADIANS(operandA)) * temporaryValue; 
         break;
 
+        case LOGIC_CONDITION_HEADING_HOME:
+            {
+                const float homeLat = DEGREES_TO_RADIANS((float)GPS_home.lat / 1e+7);
+                const float homeLon = DEGREES_TO_RADIANS((float)GPS_home.lon / 1e+7);
+                const float currLat = DEGREES_TO_RADIANS(operandA);
+                const float currLon = DEGREES_TO_RADIANS(operandB);
+                const float dLon = homeLon - currLon;
+                const float heading = RADIANS_TO_DEGREES(atan2_approx(
+                    cos_approx(homeLat) * sin_approx(dLon),
+                    cos_approx(currLat) * sin_approx(homeLat) - sin_approx(currLat) * cos_approx(homeLat) * cos_approx(dLon)
+                ));
+                return CENTIDEGREES_TO_DEGREES(wrap_36000(DEGREES_TO_CENTIDEGREES(heading)));
+            }
+        break;
+
         case LOGIC_CONDITION_MIN:
             return (operandA < operandB) ? operandA : operandB;
         break;
@@ -698,6 +713,14 @@ static int logicConditionGetFlightOperandValue(int operand) {
 
         case LOGIC_CONDITION_OPERAND_FLIGHT_ALTITUDE: // cm
             return constrain(getEstimatedActualPosition(Z), INT16_MIN, INT16_MAX);
+            break;
+
+        case LOGIC_CONDITION_OPERAND_FLIGHT_LATITUDE: // cm
+            return constrain(getEstimatedActualPosition(X), INT16_MIN, INT16_MAX);
+            break;
+
+        case LOGIC_CONDITION_OPERAND_FLIGHT_LONGITUDE: // cm
+            return constrain(getEstimatedActualPosition(Y), INT16_MIN, INT16_MAX);
             break;
 
         case LOGIC_CONDITION_OPERAND_FLIGHT_VERTICAL_SPEED: // cm/s
