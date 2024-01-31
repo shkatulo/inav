@@ -173,6 +173,8 @@ bool failsafeRequiresAngleMode(void);
 bool failsafeShouldApplyControlInput(void);
 bool failsafeBypassNavigation(void);
 void failsafeUpdateRcCommandValues(void);
+bool failsafeSetLastGoodRcCommand(int idx, int command);
+int failsafeGetLastGoodRcCommand(int idx);
 
 void failsafeOnValidDataReceived(void);
 void failsafeOnValidDataFailed(void);

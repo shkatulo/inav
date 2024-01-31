@@ -251,6 +251,28 @@ void failsafeUpdateRcCommandValues(void)
     }
 }
 
+bool failsafeSetLastGoodRcCommand(int idx, int command)
+{
+    switch (idx) {
+        case ROLL:
+        case PITCH:
+        case YAW:
+            failsafeState.lastGoodRcCommand[idx] = constrain(command, -500, 500);
+            return true;
+
+        case THROTTLE:
+            failsafeState.lastGoodRcCommand[idx] = constrain(command, getThrottleIdleValue(), motorConfig()->maxthrottle);
+            return true;
+        
+        default:
+            return false;
+    }
+}
+
+int failsafeGetLastGoodRcCommand(int idx) {
+    return (idx >= ROLL && idx <= THROTTLE ) ? failsafeState.lastGoodRcCommand[idx] : 0;
+}
+
 void failsafeApplyControlInput(void)
 {
     // Apply channel values

@@ -395,6 +395,19 @@ static int logicConditionCompute(
             }
         break;
 
+        case LOGIC_CONDITION_SET_FS_HOLD_COMMAND:
+            return failsafeSetLastGoodRcCommand(operandA, operandB);
+        break;
+
+        case LOGIC_CONDITION_SET_ALTHOLD_CLIMB_RATE:
+            if (operandA == 0) updateClimbRateToAltitudeController(0, 0, ROC_TO_ALT_RESET);
+            else {
+                if (operandB == -1) updateClimbRateToAltitudeController(operandA, 0, ROC_TO_ALT_CONSTANT);
+                else updateClimbRateToAltitudeController(operandA, operandB, ROC_TO_ALT_TARGET);
+            }
+            return true;
+        break;
+
         case LOGIC_CONDITION_MIN:
             return (operandA < operandB) ? operandA : operandB;
         break;
@@ -718,6 +731,11 @@ static int logicConditionGetFlightOperandValue(int operand) {
         case LOGIC_CONDITION_OPERAND_FLIGHT_LATITUDE: // cm
             return constrain(getEstimatedActualPosition(X), INT16_MIN, INT16_MAX);
             break;
+
+        case LOGIC_CONDITION_OPERAND_FS_HOLD_THROTTLE:
+            return failsafeGetLastGoodRcCommand(THROTTLE);
+            break;
+        
 
         case LOGIC_CONDITION_OPERAND_FLIGHT_LONGITUDE: // cm
             return constrain(getEstimatedActualPosition(Y), INT16_MIN, INT16_MAX);

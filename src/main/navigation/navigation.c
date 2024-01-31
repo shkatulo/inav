@@ -3663,7 +3663,7 @@ static void processNavigationRCAdjustments(void)
     /* Process pilot's RC input. Disable all pilot's input when in FAILSAFE_MODE */
     navigationFSMStateFlags_t navStateFlags = navGetStateFlags(posControl.navState);
 
-    if (FLIGHT_MODE(FAILSAFE_MODE)) {
+    if (FLIGHT_MODE(FAILSAFE_MODE) && failsafePhase() != FAILSAFE_RX_LOSS_IDLE) {
         if (STATE(MULTIROTOR) && navStateFlags & NAV_RC_POS) {
             resetMulticopterBrakingMode();
         }
