@@ -1151,6 +1151,9 @@ static void djiSerializeCraftNameOverride(sbuf_t *dst)
     if (djibuf[0] != '\0') {
         sbufWriteData(dst, djibuf, strlen(djibuf));
     }
+    else {
+        sbufWriteData(dst, systemConfig()->craftName, (int)strlen(systemConfig()->craftName));
+    }
 }
 
 #endif
