@@ -633,7 +633,7 @@ cfTask_t cfTasks[TASK_COUNT] = {
     [TASK_PROGRAMMING_FRAMEWORK] = {
         .taskName = "PROGRAMMING",
         .taskFunc = programmingFrameworkUpdateTask,
-        .desiredPeriod = TASK_PERIOD_HZ(10),          // 10Hz @100msec
+        .desiredPeriod = TASK_PERIOD_HZ(20),          // 10Hz @100msec
         .staticPriority = TASK_PRIORITY_IDLE,
     },
 #endif
