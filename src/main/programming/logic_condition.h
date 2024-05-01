@@ -87,6 +87,9 @@ typedef enum {
     LOGIC_CONDITION_HEADING_HOME                = 90,
     LOGIC_CONDITION_SET_FS_HOLD_COMMAND         = 91,
     LOGIC_CONDITION_SET_ALTHOLD_CLIMB_RATE      = 92,
+    LOGIC_CONDITION_ABS                         = 93,
+    LOGIC_CONDITION_NORMALIZE_A                 = 94,
+    LOGIC_CONDITION_NORMALIZE_B                 = 95,
 
     LOGIC_CONDITION_LAST
 } logicOperation_e;

@@ -408,6 +408,20 @@ static int logicConditionCompute(
             return true;
         break;
 
+        case LOGIC_CONDITION_ABS:
+            return ABS(operandA);
+        break;
+
+        case LOGIC_CONDITION_NORMALIZE_A:
+            temporaryValue = MAX(ABS(operandA), ABS(operandB));
+            return (float)operandA / temporaryValue * 1000000;
+        break;
+
+        case LOGIC_CONDITION_NORMALIZE_B:
+            temporaryValue = MAX(ABS(operandA), ABS(operandB));
+            return (float)operandB / temporaryValue * 1000000;
+        break;
+
         case LOGIC_CONDITION_MIN:
             return (operandA < operandB) ? operandA : operandB;
         break;
